@@ -9,4 +9,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Npv-Exercise.Core\Npv-Exercise.Core.csproj" />
+    <ProjectReference Include="..\Npv-Exercise.Data\Npv-Exercise.Data.csproj" />
+  </ItemGroup>
+
 </Project>
