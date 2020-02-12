@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29418.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "npv-exercise", "npv-exercise\npv-exercise.csproj", "{8EAFAD0F-29EC-4274-9EA0-DB490969C94A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{DA911263-B9B2-4E54-97E4-4464245D2BE4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3DEACFF8-1FFD-46E6-AC2B-45E753C3F414}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Npv-Exercise.Core", "Npv-Exercise.Core\Npv-Exercise.Core.csproj", "{D5DC1831-39D8-44AD-AF71-18838B00F968}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Npv-Exercise.Data", "Npv-Exercise.Data\Npv-Exercise.Data.csproj", "{7DD2F085-E7EA-46CD-9897-7AA9F3EFB3E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Npv-Exercise.Service", "Npv-Exercise.Service\Npv-Exercise.Service.csproj", "{58C2D036-CFF7-4810-B2FD-5FA6EDC66754}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{8D41ECD9-6B09-4422-89D6-A235A152FE0E}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NPV-Exercise.Database", "NPV-Exercise.Database\NPV-Exercise.Database.sqlproj", "{02B1236D-468A-4654-81F7-6DA9A30CBB38}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8EAFAD0F-29EC-4274-9EA0-DB490969C94A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EAFAD0F-29EC-4274-9EA0-DB490969C94A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EAFAD0F-29EC-4274-9EA0-DB490969C94A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EAFAD0F-29EC-4274-9EA0-DB490969C94A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5DC1831-39D8-44AD-AF71-18838B00F968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5DC1831-39D8-44AD-AF71-18838B00F968}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5DC1831-39D8-44AD-AF71-18838B00F968}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5DC1831-39D8-44AD-AF71-18838B00F968}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DD2F085-E7EA-46CD-9897-7AA9F3EFB3E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD2F085-E7EA-46CD-9897-7AA9F3EFB3E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD2F085-E7EA-46CD-9897-7AA9F3EFB3E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD2F085-E7EA-46CD-9897-7AA9F3EFB3E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58C2D036-CFF7-4810-B2FD-5FA6EDC66754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58C2D036-CFF7-4810-B2FD-5FA6EDC66754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58C2D036-CFF7-4810-B2FD-5FA6EDC66754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58C2D036-CFF7-4810-B2FD-5FA6EDC66754}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B1236D-468A-4654-81F7-6DA9A30CBB38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B1236D-468A-4654-81F7-6DA9A30CBB38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B1236D-468A-4654-81F7-6DA9A30CBB38}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{02B1236D-468A-4654-81F7-6DA9A30CBB38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02B1236D-468A-4654-81F7-6DA9A30CBB38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B1236D-468A-4654-81F7-6DA9A30CBB38}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D5DC1831-39D8-44AD-AF71-18838B00F968} = {DA911263-B9B2-4E54-97E4-4464245D2BE4}
+		{7DD2F085-E7EA-46CD-9897-7AA9F3EFB3E7} = {DA911263-B9B2-4E54-97E4-4464245D2BE4}
+		{58C2D036-CFF7-4810-B2FD-5FA6EDC66754} = {DA911263-B9B2-4E54-97E4-4464245D2BE4}
+		{02B1236D-468A-4654-81F7-6DA9A30CBB38} = {8D41ECD9-6B09-4422-89D6-A235A152FE0E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {976C69C2-6B4E-4979-9A75-7DC97FD1216A}
+	EndGlobalSection
+EndGlobal
