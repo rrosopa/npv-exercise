@@ -4,7 +4,8 @@
         buttonCalculate: $('#btn-calculate'),
         divCashflow: $('#div-cashflows'),
         divError: $('#div-error'),
-        divResult: $('#div-result'),
+        divPrevious: $('#div-previous'),
+        divResult: $('#div-result'),       
         formNpv: $('#form-npv')
     };
 
@@ -32,8 +33,7 @@
                              </tr>
                              [CONTENT]
                             </table>
-                           </div>
-                          `
+                           </div>`;
 
     function removeCashflow(e) {
         $(e.currentTarget.parentElement).remove();
@@ -77,6 +77,105 @@
         return errorCtr == 0;
     }
 
+    function onCalculateSuccess(result) {
+        if (result.hasErrors) {
+            result.errors.forEach(error => {
+                _elements.divResult.append(`<p>${error.message}</p>`);
+            });
+        }
+        else {
+            var contentString = '';
+
+            result.data.forEach(x => {
+                if (x.hasErrors) {
+                    contentString += `<tr><td class="text-center" colspan="5">${x.errors[0].message}</td></tr>`;
+                }
+                else {
+                    contentString += `<tr>
+                                            <td class="text-right">${x.cashflows.join(', ')}</td>
+                                            <td class="text-right">${x.initialValue}</td>
+                                            <td class="text-right">${x.rate}</td>
+                                            <td class="text-right">${x.netPresentValue}</td>
+                                            <td class="text-right">${x.presentValueOfExpectedCashflows}</td>
+                                            </tr>`;
+                }
+            });
+
+            _elements.divResult.append(_resultTemplate.replace('[CONTENT]', contentString));
+            getPreviousCalculations();
+        }
+    }
+
+    function getPreviousCalculations() {
+        _elements.divPrevious.empty();
+
+        $.get(
+            '/api/npvVariables',
+            function (result) {
+                if (result.hasErrors) {
+                    result.errors.forEach(error => {
+                        _elements.divPrevious.append(`<p>${error.message}</p>`);
+                    });
+                }
+                else {
+
+                    if (result.data.length == 0) {
+                        _elements.divPrevious.append('<p>no calculations has been made yet.</p>');
+                    }
+                    else {
+                        var contentString = '';
+                        result.data.forEach(x => {
+                            var cashflowString = '';
+                            x.cashflows.forEach(cashflow => cashflowString += `${cashflow.cashflow}, `);
+
+                            contentString += `<div class="row mb-5">
+                                        <div class="col-6">
+                                            <div class="input-group d-flex justify-content-between">
+                                                <label class="font-weight-bold">Initial Value:</label><span>${x.initialValue}</span>
+                                            </div>
+                                            <div class="input-group d-flex flex-column">
+                                                <label class="font-weight-bold">Cashflows:</label><span>${cashflowString}</span>
+                                            </div>      
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group d-flex justify-content-between">
+                                                <label class="font-weight-bold">Lower bound rate:</label><span>${x.lowerBoundRate}</span>
+                                            </div>
+                                            <div class="input-group d-flex justify-content-between">
+                                                <label class="font-weight-bold">Upper bound rate:</label><span>${x.upperBoundRate}</span>
+                                            </div>
+                                            <div class="input-group d-flex justify-content-between">
+                                                <label class="font-weight-bold">increment:</label><span>${x.increment}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-center">
+                                            <button type="button" class="btn btn-primary recalculate" data-id="${x.id}">Recalculate</button>
+                                        </div>
+                                      </div>`;
+                        });
+
+                        _elements.divPrevious.append(contentString);
+
+                        $('button.recalculate').click(function (e) {
+                            _elements.divResult.empty();
+
+                            $.get(
+                                `/api/npv/${e.currentTarget.dataset.id}`,
+                                onCalculateSuccess
+                            ).fail(function (error) {
+                                console.log(error);
+                                _elements.divResult.append('<p>An error occured while processing your request</p>');
+                            });
+                        });
+                    }                    
+                }
+            }
+        ).fail(function (error) {
+            console.log(error);
+            _elements.divPrevious.append('<p>An error occured while trying to get previous results</p>');
+        });
+    }
+
     _elements.buttonCalculate.click(function (e) {
         e.preventDefault();
         
@@ -85,33 +184,7 @@
 
             $.get(
                 `/api/npv?${_elements.formNpv.serialize()}`,
-                function (result) {
-                    if (result.hasErrors) {
-                        result.errors.forEach(error => {
-                            _elements.divResult.append(`<p>${error.message}</p>`);
-                        });
-                    }
-                    else {
-                        var contentString = '';
-
-                        result.data.forEach(x => {
-                            if (x.hasErrors) {
-                                contentString += `<tr><td class="text-center" colspan="5">${x.errors[0].message}</td></tr>`;
-                            }
-                            else {
-                                contentString += `<tr>
-                                                <td class="text-right">${x.cashflows.join(', ')}</td>
-                                                <td class="text-right">${x.initialValue}</td>
-                                                <td class="text-right">${x.rate}</td>
-                                                <td class="text-right">${x.netPresentValue}</td>
-                                                <td class="text-right">${x.presentValueOfExpectedCashflows}</td>
-                                              </tr>`;
-                            }                            
-                        });
-
-                        _elements.divResult.append(_resultTemplate.replace('[CONTENT]', contentString));
-                    }
-                }
+                onCalculateSuccess
             ).fail(function (error) {
                 console.log(error);
                 _elements.divResult.append('<p>An error occured while processing your request</p>');
@@ -129,7 +202,9 @@
         if ($('input[name=cashflows]').length >= 12) {
             _elements.buttonAddCashflow.hide();
         }
-    });
+    });    
 
     $('.btn-remove').click(removeCashflow);
+
+    getPreviousCalculations();
 });
