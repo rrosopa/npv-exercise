@@ -9,6 +9,6 @@ namespace Npv_Exercise.Core.Models.NpvVariables
         public decimal UpperBoundRate { get; set; }
         public decimal Increment { get; set; }
 
-        public virtual List<NpvVariableCashflow> Cashflows { get; set; }
+        public List<NpvVariableCashflow> Cashflows { get; set; }
     }
 }

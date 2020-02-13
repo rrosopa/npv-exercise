@@ -20,13 +20,15 @@ namespace Npv_Exercise.Service.Queries.NpvVariables
                         LowerBoundRate = x.LowerBoundRate,
                         UpperBoundRate = x.UpperBoundRate,
                         Increment = x.Increment,
-                        Cashflows = x.CashflowEntities.Select(cashflow => new NpvVariableCashflow
-                        {
-                            Id = cashflow.Id,
-                            NpvVariableId = cashflow.NpvVariableId,
-                            Cashflow = cashflow.Cashflow,
-                            Order = cashflow.Order
-                        }).ToList()
+                        Cashflows = x.CashflowEntities
+                            .OrderBy(cashflow => cashflow.Order)
+                            .Select(cashflow => new NpvVariableCashflow
+                            {
+                                Id = cashflow.Id,
+                                NpvVariableId = cashflow.NpvVariableId,
+                                Cashflow = cashflow.Cashflow,
+                                Order = cashflow.Order
+                            }).ToList()
                     })
                     .ToListAsync();
         }
