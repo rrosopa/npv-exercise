@@ -56,7 +56,7 @@ namespace Npv_Exercise.Service.Services.NPV
             try
             {
                 // validate inputs first
-                if(upperBoundRate < lowerBoundRate && upperBoundRate > 100)
+                if(upperBoundRate < lowerBoundRate || upperBoundRate > 100)
                 {
                     result.Errors.Add(new Error(
                        ErrorCodes.NPVServiceError006,

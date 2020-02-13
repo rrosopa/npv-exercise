@@ -71,6 +71,11 @@ namespace Npv_Exercise.Service.Services.NpvVariables
             try
             {
                 fetchResult.Data = await  _appDbContext.NpvVariables.GetNpvVariableById(id);
+                if(fetchResult.Data == null)
+                {
+                    // do logging here
+                    fetchResult.Errors.Add(new Error(ErrorCodes.NpvVariableServiceError005, "NPV Variable does not exists."));
+                }
             }
             catch (Exception ex)
             {

@@ -20,22 +20,24 @@ namespace Npv_Exercise.Service.Queries.NpvVariables
                         LowerBoundRate = x.LowerBoundRate,
                         UpperBoundRate = x.UpperBoundRate,
                         Increment = x.Increment,
-                        Cashflows = x.CashflowEntities
-                            .OrderBy(cashflow => cashflow.Order)
-                            .Select(cashflow => new NpvVariableCashflow
-                            {
-                                Id = cashflow.Id,
-                                NpvVariableId = cashflow.NpvVariableId,
-                                Cashflow = cashflow.Cashflow,
-                                Order = cashflow.Order
-                            }).ToList()
+                        Cashflows = x.CashflowEntities == null 
+                            ? new List<NpvVariableCashflow>() 
+                            : x.CashflowEntities
+                                .OrderBy(cashflow => cashflow.Order)
+                                .Select(cashflow => new NpvVariableCashflow
+                                {
+                                    Id = cashflow.Id,
+                                    NpvVariableId = cashflow.NpvVariableId,
+                                    Cashflow = cashflow.Cashflow,
+                                    Order = cashflow.Order
+                                }).ToList()
                     })
                     .ToListAsync();
         }
 
         public async static Task<NpvVariable> GetNpvVariableById(this IQueryable<NpvVariableEntity> npvVariables, int id)
         {
-            return (await npvVariables.FilterById(id).GetNpvVariables()).SingleOrDefault();                    
+            return (await npvVariables.FilterById(id).GetNpvVariables())?.SingleOrDefault();                    
         }
     }
 }

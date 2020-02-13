@@ -16,5 +16,6 @@
         public static readonly string NpvVariableServiceError002 = "NVSE002";
         public static readonly string NpvVariableServiceError003 = "NVSE003";
         public static readonly string NpvVariableServiceError004 = "NVSE004";
+        public static readonly string NpvVariableServiceError005 = "NVSE005";
     }
 }
